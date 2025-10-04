@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de inventario</title>
+    <script src="inventario.js"></script>
+    <script src="producto.js"></script>
+</head>
+<body>
+    <div>
+        <form>
+            <label for="txtCod">
+                Codigo:<input type="text" id="txtCod">
+            </label>
+            <label for="txtNom">
+                Nombre:<input type="text" id="txtNom">
+            </label>
+            <label>
+                Precio:<input type="number" id="txtPre">
+            </label>
+            <label>
+                Cantidad:<input type="number" id="txtCan" value="1">
+            </label>
+            <button type="button" id="btnAdd">Agregar</button>
+             <button type="reset">Cancelar</button>
+            <button type="button" id="btnEliminar">Eliminar</button>
+            <button type="button" id="btnFind">Buscar</button>
+            <button type="button" id="btnList">Listar</button>
+            <button type="button" id="btnAddFirst">Agregar a inicio</button>
+            <button type="button" id="btnExtractFirst">Extraer primero</button>
+            <button type="button" id="btnInsert">Insertar</button>
+        </form>
+    </div>
+    <div id="detalles"></div>
+    <script>
+        const miInv = new Inventario();
+        
+        const btnAdd = document.getElementById("btnAdd");  
+        btnAdd.addEventListener("click",()=>{
+            let codigo = document.getElementById("txtCod").value;
+            let nombre = document.getElementById("txtNom").value;
+            let precio = document.getElementById("txtPre").value;
+            let cantidad = document.getElementById("txtCan").value;
+            let producto = new Producto(codigo, nombre, cantidad, precio);
+            miInv.agregar(producto);
+            let msg = document.getElementById("detalles");
+            msg.innerHTML = "";
+            msg.innerHTML += "<p>Se agregó el producto: " + producto.infoHtml() + "<p>";          
+        });
+
+        const btnEliminar = document.getElementById("btnEliminar");
+        btnEliminar.addEventListener("click", ()=>{
+            let codigo = document.getElementById("txtCod").value;
+            let msg = document.getElementById("detalles");
+            msg.innerHTML = "";
+            msg.innerHTML += "<p>Se eliminó el producto: " + miInv.buscarHtml(codigo) + "<p>";
+            miInv.eliminar(codigo); 
+        });
+
+        const btnList = document.getElementById("btnList");
+        btnList.addEventListener("click",()=>{
+            let msg = document.getElementById("detalles");
+            msg.innerHTML = "";
+            msg.innerHTML += "<p>Listado: " + miInv.listarHtml() + "</p>";
+        });
+
+        const btnFind = document.getElementById("btnFind");
+        btnFind.addEventListener("click",()=>{
+            let codigo = document.getElementById("txtCod").value;
+            let msg = document.getElementById("detalles");
+            msg.innerHTML = "";
+            msg.innerHTML += miInv.buscarHtml(codigo);
+        });
+
+        const btnAddFirst = document.getElementById("btnAddFirst");
+        btnAddFirst.addEventListener("click", ()=>{
+            let msg = document.getElementById("detalles");
+            let codigo = document.getElementById("txtCod").value;
+            let nombre = document.getElementById("txtNom").value;
+            let precio = document.getElementById("txtPre").value;
+            let cantidad = document.getElementById("txtCan").value;
+            let producto = new Producto(codigo, nombre, cantidad, precio);
+            miInv.agregarInicio(producto);
+            msg.innerHTML = "";
+            msg.innerHTML += "<p>Se agregó al inicio: " + producto.infoHtml() + "</p>";
+        });
+
+        const btnExtractFirst = document.getElementById("btnExtractFirst");
+        btnExtractFirst.addEventListener("click", ()=>{
+            let msg = document.getElementById("detalles");
+            msg.innerHTML = "";
+            msg.innerHTML += "<p>Se extrajo el primer objeto: " + miInv.extraerPrimeroHtml(); + "</p>";
+        });
+
+        const btnInsert = document.getElementById("btnInsert");
+        btnInsert.addEventListener("click", ()=>{
+            let msg = document.getElementById("detalles");
+            let posicion = prompt("Posicion: ");
+            let codigo = document.getElementById("txtCod").value;
+            let nombre = document.getElementById("txtNom").value;
+            let precio = document.getElementById("txtPre").value;
+            let cantidad = document.getElementById("txtCan").value;
+            let producto = new Producto(codigo, nombre, cantidad, precio);
+            miInv.insertar(producto, posicion);
+            msg.innerHTML = "";
+            msg.innerHTML += "<p>Se insertó en la posición " + posicion + " el objeto: " + producto.infoHtml() + "</p>";
+        });
+    </script>
+</body>
+</html>
