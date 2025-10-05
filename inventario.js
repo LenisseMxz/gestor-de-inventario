@@ -11,18 +11,20 @@ class Inventario{
     eliminar(codigoProducto){
 
         for(let i = 0; i <= this._productos.length-1; i++){
-            if(codigoProducto == this._productos[i].codigo){
+            if(this._productos[i] != undefined && codigoProducto == this._productos[i].codigo){
                 for(let j = i; j <= this._productos.length-1; j++){
                     this._productos[j] = this._productos[j+1];
                 };    
                 this._productos.pop();
+            }else{
+                continue;
             };
         };
     };
 
     listar(){
 
-        if(this._productos[0] != null){
+        if(this._productos.length != 0){
             let listadoProductos = "";             
             for(let i = 0; i <= this._productos.length-1; i++){
                 if(this._productos[i] != undefined){
@@ -39,7 +41,7 @@ class Inventario{
 
     listarHtml(){
 
-        if(this._productos[0] != null){
+        if(this._productos.length != 0){
             let listadoProductos = "";  
             for(let i = 0; i <= this._productos.length-1; i++){
                 if(this._productos[i] != undefined){
@@ -57,8 +59,10 @@ class Inventario{
     buscar(codigoProducto){
 
         for(let i = 0; i <= this._productos.length-1; i++){
-            if(codigoProducto == this._productos[i].codigo){
+            if(this._productos[i] != undefined && codigoProducto == this._productos[i].codigo){
                 return this._productos[i];
+            }else{
+                continue;
             };
         };
         return null;
@@ -69,6 +73,8 @@ class Inventario{
         for(let i = 0; i <= this._productos.length-1; i++){
             if(this._productos[i] != undefined && codigoProducto == this._productos[i].codigo){
                 return `<p><strong>Codigo: ${this._productos[i].codigo}<br>Nombre: ${this._productos[i].nombre}<br>Cantidad: ${this._productos[i].cantidad}<br>Precio: ${this._productos[i].precio}</strong></p>`
+            }else{
+                continue;
             };
         };
         return `El objeto no existe.`;
@@ -84,7 +90,7 @@ class Inventario{
 
     extraerPrimero(){
 
-        if(this._productos[0] != null){
+        if(this._productos.length != 0){
             let primerProducto = this._productos[0];
             for(let i = 0; i <= this._productos.length-1; i++){
                 this._productos[i] = this._productos[i+1]; 
@@ -98,7 +104,7 @@ class Inventario{
 
     extraerPrimeroHtml(){
 
-        if(this._productos[0] != null){
+        if(this._productos.length != 0){
             let primerProducto = this._productos[0];
             for(let i = 0; i <= this._productos.length-1; i++){
                 this._productos[i] = this._productos[i+1]; 
