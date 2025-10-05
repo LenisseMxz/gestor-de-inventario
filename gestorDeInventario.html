@@ -102,9 +102,8 @@
             let precio = document.getElementById("txtPre").value;
             let cantidad = document.getElementById("txtCan").value;
             let producto = new Producto(codigo, nombre, cantidad, precio);
-            miInv.insertar(producto, posicion);
             msg.innerHTML = "";
-            msg.innerHTML += "<p>Se insertó en la posición " + posicion + " el objeto: " + producto.infoHtml() + "</p>";
+            msg.innerHTML += "<p>Se insertó en la posición " + posicion + " el objeto: " + miInv.insertar(producto, posicion) + "</p>";
         });
     </script>
 </body>

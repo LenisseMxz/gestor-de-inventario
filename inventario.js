@@ -117,14 +117,21 @@ class Inventario{
     };
 
     insertar(producto, posicion){
-        
-        if(this._productos[posicion] != undefined){
-            for(let i = this._productos.length; i > posicion; i--){
-            this._productos[i] = this._productos[i-1];
-            };
-            this._productos[posicion] = producto;
+
+        if(posicion == ""){
+            alert(`La posición debe ser un valor mayor a 0.`);
+            return `Ninguno`;
         }else{
-            this._productos[posicion] = producto;
-        };   
+            if(this._productos[posicion] != undefined){
+                for(let i = this._productos.length; i > posicion; i--){
+                    this._productos[i] = this._productos[i-1];
+                };
+                this._productos[posicion] = producto;
+                return `<p><strong>${this._productos[posicion].nombre}</strong></p>`;
+            }else{
+                this._productos[posicion] = producto;
+                return `<p><strong>${this._productos[posicion].nombre}</strong></p>`;
+            }; 
+        };     
     };
 };
