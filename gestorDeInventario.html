@@ -11,7 +11,7 @@
     <div>
         <form>
             <label for="txtCod">
-                Codigo:<input type="text" id="txtCod">
+                Codigo:<input type="number" id="txtCod">
             </label>
             <label for="txtNom">
                 Nombre:<input type="text" id="txtNom">
@@ -27,9 +27,10 @@
             <button type="button" id="btnEliminar">Eliminar</button>
             <button type="button" id="btnFind">Buscar</button>
             <button type="button" id="btnList">Listar</button>
-            <button type="button" id="btnAddFirst">Agregar a inicio</button>
+            <button type="button" id="btnListInverse">Listar Inverso</button>
+            <!--<button type="button" id="btnAddFirst">Agregar a inicio</button>-->
             <button type="button" id="btnExtractFirst">Extraer primero</button>
-            <button type="button" id="btnInsert">Insertar</button>
+            <!--<button type="button" id="btnInsert">Insertar</button>-->
         </form>
     </div>
     <div id="detalles"></div>
@@ -38,15 +39,14 @@
         
         const btnAdd = document.getElementById("btnAdd");  
         btnAdd.addEventListener("click",()=>{
-            let codigo = document.getElementById("txtCod").value;
+            let codigo = parseInt(document.getElementById("txtCod").value);
             let nombre = document.getElementById("txtNom").value;
             let precio = document.getElementById("txtPre").value;
             let cantidad = document.getElementById("txtCan").value;
             let producto = new Producto(codigo, nombre, cantidad, precio);
-            miInv.agregar(producto);
             let msg = document.getElementById("detalles");
             msg.innerHTML = "";
-            msg.innerHTML += "<p>Se agregó el producto: " + producto.infoHtml() + "<p>";          
+            msg.innerHTML += `${miInv.agregarOrdenado(producto)}`;          
         });
 
         const btnEliminar = document.getElementById("btnEliminar");
@@ -65,14 +65,22 @@
             msg.innerHTML += "<p>Listado: " + miInv.listarHtml() + "</p>";
         });
 
+        const btnListInverse = document.getElementById("btnListInverse");
+        btnListInverse.addEventListener("click",()=>{
+            let msg = document.getElementById("detalles");
+            msg.innerHTML = "";
+            msg.innerHTML += "<p>Listado: " + miInv.listarHtmlInverso() + "</p>";
+        });
+
         const btnFind = document.getElementById("btnFind");
         btnFind.addEventListener("click",()=>{
             let codigo = document.getElementById("txtCod").value;
             let msg = document.getElementById("detalles");
             msg.innerHTML = "";
-            msg.innerHTML += miInv.buscarHtml(codigo);
+            msg.innerHTML += miInv.buscarHtmlBinario(codigo);
         });
 
+        /*
         const btnAddFirst = document.getElementById("btnAddFirst");
         btnAddFirst.addEventListener("click", ()=>{
             let msg = document.getElementById("detalles");
@@ -85,6 +93,7 @@
             msg.innerHTML = "";
             msg.innerHTML += "<p>Se agregó al inicio: " + producto.infoHtml() + "</p>";
         });
+        */
 
         const btnExtractFirst = document.getElementById("btnExtractFirst");
         btnExtractFirst.addEventListener("click", ()=>{
@@ -93,6 +102,7 @@
             msg.innerHTML += "<p>Se extrajo el primer objeto: " + miInv.extraerPrimeroHtml(); + "</p>";
         });
 
+        /*
         const btnInsert = document.getElementById("btnInsert");
         btnInsert.addEventListener("click", ()=>{
             let msg = document.getElementById("detalles");
@@ -105,6 +115,7 @@
             msg.innerHTML = "";
             msg.innerHTML += "<p>Se insertó en la posición " + posicion + " el objeto: " + miInv.insertar(producto, posicion) + "</p>";
         });
+        */
     </script>
 </body>
 </html>

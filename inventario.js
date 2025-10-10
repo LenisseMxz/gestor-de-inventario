@@ -4,8 +4,36 @@ class Inventario{
         this._productos = [];
     };
 
+    /*
     agregar(producto){
         this._productos.push(producto);
+    };
+    */
+
+    agregarOrdenado(producto){
+        if(this._productos.length != 0){
+            for(let i = 0; i <= this._productos.length-1; i++){
+                if(this._productos[i].codigo != producto.codigo){
+                    if(this._productos[i].codigo > producto.codigo){
+                        for(let j = this._productos.length; j > i; j--){
+                            this._productos[j] = this._productos[j-1];
+                        };
+                        this._productos[i] = producto;
+                        break;
+                    }else if (this._productos[i+1] == undefined){
+                        this._productos.push(producto);
+                        break;
+                    };
+                }else if(this._productos[i] == undefined){
+                    continue;
+                }else{
+                    return `Código invalido`;
+                };
+            };
+        }else{
+            this._productos.push(producto);
+        };
+        return `<p>Se añadió el objeto:<br><br><strong>Codigo: ${producto.codigo}<br>Nombre: ${producto.nombre}<br>Cantidad: ${producto.cantidad}<br>Precio: ${producto.precio}</strong></p>`;
     };
 
     eliminar(codigoProducto){
@@ -22,8 +50,8 @@ class Inventario{
         };
     };
 
+    /*
     listar(){
-
         if(this._productos.length != 0){
             let listadoProductos = "";             
             for(let i = 0; i <= this._productos.length-1; i++){
@@ -38,9 +66,9 @@ class Inventario{
             return `No hay objetos para listar.`;
         };
     };
+    */
 
     listarHtml(){
-
         if(this._productos.length != 0){
             let listadoProductos = "";  
             for(let i = 0; i <= this._productos.length-1; i++){
@@ -56,6 +84,23 @@ class Inventario{
         };
     };
 
+     listarHtmlInverso(){
+        if(this._productos.length != 0){
+            let listadoProductos = "";  
+            for(let i = this._productos.length-1; i >= 0; i--){
+                if(this._productos[i] != undefined){
+                    listadoProductos += `<p><strong>${this._productos[i].nombre}<br></strong></p>`
+                }else{
+                    listadoProductos += `<p><strong>Undefined<br><strong><p>`
+                };
+            };
+            return listadoProductos;
+        }else{
+            return `No hay objetos para listar.`;
+        };
+    };
+
+    /*
     buscar(codigoProducto){
 
         for(let i = 0; i <= this._productos.length-1; i++){
@@ -67,6 +112,7 @@ class Inventario{
         };
         return null;
     };
+    */
 
     buscarHtml(codigoProducto){
 
@@ -80,6 +126,27 @@ class Inventario{
         return `El objeto no existe.`;
     };
 
+    //[2, 3]
+    buscarHtmlBinario(codigoProducto){
+        let izq = 0;
+        let der = this._productos.length-1;
+        let medio = Math.ceil((izq+der)/2);
+
+        while(codigoProducto != this._productos[medio].codigo){
+            if(medio == izq || medio == der && this._productos.length != 2){
+                return `El objeto no existe.`
+            }else if(codigoProducto < this._productos[medio].codigo){
+                der = medio-1;
+                medio = Math.ceil((izq+der)/2);
+            }else if(codigoProducto > this._productos[medio].codigo){
+                izq = medio+1;
+                medio = Math.ceil((izq+der)/2);
+            };
+        };
+        return `<p><strong>Codigo: ${this._productos[medio].codigo}<br>Nombre: ${this._productos[medio].nombre}<br>Cantidad: ${this._productos[medio].cantidad}<br>Precio: ${this._productos[medio].precio}</strong></p>`;
+    };
+
+    /*
     agregarInicio(producto){
 
         for(let i = this._productos.length; i > 0; i--){
@@ -87,7 +154,9 @@ class Inventario{
         };
         this._productos[0] = producto;
     };
+    */
 
+    /*
     extraerPrimero(){
 
         if(this._productos.length != 0){
@@ -101,6 +170,7 @@ class Inventario{
             return null;
         }; 
     };
+    */
 
     extraerPrimeroHtml(){
 
@@ -116,6 +186,7 @@ class Inventario{
         };
     };
 
+    /*
     insertar(producto, posicion){
 
         if(posicion == ""){
@@ -134,4 +205,5 @@ class Inventario{
             }; 
         };     
     };
+    */
 };
