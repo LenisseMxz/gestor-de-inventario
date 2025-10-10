@@ -126,7 +126,6 @@ class Inventario{
         return `El objeto no existe.`;
     };
 
-    //[2, 3]
     buscarHtmlBinario(codigoProducto){
         let izq = 0;
         let der = this._productos.length-1;
